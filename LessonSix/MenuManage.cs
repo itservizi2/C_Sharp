@@ -49,7 +49,7 @@ class MenuManage
                         Console.WriteLine("Ice Cream - Choose from a variety of delicious flavors. Price: MDL 4.99");
                         break;
                 }
-                break; 
+                break;
             }
             else
             {

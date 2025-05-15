@@ -20,6 +20,8 @@ namespace LessonSix
                 Console.WriteLine("8. IdentifyTypeLambda");
                 Console.WriteLine("9. ShapeArea");
                 Console.WriteLine("10. EmployeeSalary");
+                Console.WriteLine("11. MenuManageNew");
+                Console.WriteLine("12. ArithmeticCalculatorNew");
                 Console.WriteLine("0. Exit");
 
                 Console.Write("Enter your choice: ");
@@ -47,6 +49,8 @@ namespace LessonSix
                     case 8: IdentifyTypeLambda.Execute(); break;
                     case 9: ShapeArea.Execute(); break;
                     case 10: EmployeeSalary.Execute(); break;
+                    case 11: MenuManageNew.Execute(); break;
+                    case 12: ArithmeticCalculatorNew.Execute(); break;
                     default:
                         Console.WriteLine("Invalid choice! Please enter a valid number from the menu.");
                         break;
