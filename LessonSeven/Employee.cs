@@ -15,11 +15,8 @@ class EmployeeInfo
 
         for (int i = 0; i < employees.Length; i++)
         {
-            Console.Write($"Enter name of employee {i + 1}: ");
-            employees[i].Name = Console.ReadLine();
-
-            Console.Write($"Enter department of employee {i + 1}: ");
-            employees[i].Department = Console.ReadLine();
+            employees[i].Name = GetValidatedInput($"Enter name of employee {i + 1}: ");
+            employees[i].Department = GetValidatedInput($"Enter department of employee {i + 1}: ");
 
             while (true)
             {
@@ -49,6 +46,20 @@ class EmployeeInfo
             {
                 Console.WriteLine(employee.Name);
             }
+        }
+    }
+
+    private static string GetValidatedInput(string prompt)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+            string? input = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                return input;
+            }
+            Console.WriteLine("Invalid input! Please enter a valid text.");
         }
     }
 }

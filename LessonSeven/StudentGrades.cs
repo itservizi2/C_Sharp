@@ -4,7 +4,6 @@ class StudentGrades
 {
     public static void Execute()
     {
-        
         Console.Write("Enter the number of students: ");
         int numStudents;
 
@@ -18,8 +17,7 @@ class StudentGrades
 
         for (int i = 0; i < numStudents; i++)
         {
-            Console.Write($"Enter name for student {i + 1}: ");
-            studentNames[i] = Console.ReadLine();
+            studentNames[i] = GetValidatedInput($"Enter name for student {i + 1}: ");
 
             Console.Write($"Enter grade for {studentNames[i]} (1-10): ");
             while (!int.TryParse(Console.ReadLine(), out grades[i]) || grades[i] < 1 || grades[i] > 10)
@@ -46,5 +44,19 @@ class StudentGrades
             sum += grade;
         }
         return (double)sum / grades.Length;
+    }
+
+    private static string GetValidatedInput(string prompt)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+            string? input = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                return input;
+            }
+            Console.WriteLine("Invalid input! Please enter a valid name.");
+        }
     }
 }
