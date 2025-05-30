@@ -1,6 +1,4 @@
 ﻿using System;
-
-using System;
 using System.Threading.Tasks;
 
 namespace LessonTwelve
@@ -10,12 +8,10 @@ namespace LessonTwelve
         static async Task Main()
         {
             Console.WriteLine("Lesson Twelve Homework");
-
             await AsyncReader.Execute();
             await ProgramProcessingOrders.Execute();
             await AsyncReaderTwo.Execute();
-
-
+            await AsyncReaderThree.Execute();
         }
     }
 }
