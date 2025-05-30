@@ -13,7 +13,9 @@ namespace LessonTwelve
 
             await AsyncReader.Execute();
             await ProgramProcessingOrders.Execute();
-            
+            await AsyncReaderTwo.Execute();
+
+
         }
     }
 }
