@@ -15,19 +15,19 @@ abstract class Notification
     public abstract void Send();
     public abstract string Preview();
 
-    public void SendUrgent(string message)
+    public void SendUrgent()
     {
-        Console.WriteLine($"Urgent notification sent: {message}");
+        Console.WriteLine($"Urgent notification sent to {Recipient}: {Message}");
     }
 
-    public void SendUrgent(string message, int retryCount)
+    public void SendUrgent(int retryCount)
     {
-        Console.WriteLine($"Urgent notification sent with {retryCount} retries: {message}");
+        Console.WriteLine($"Urgent notification sent to {Recipient} with {retryCount} retries: {Message}");
     }
 
-    public void SendUrgent(string message, bool notifyAdmin)
+    public void SendUrgent(bool notifyAdmin)
     {
-        Console.WriteLine($"Urgent notification sent: {message}. Admin notified: {notifyAdmin}");
+        Console.WriteLine($"Urgent notification sent to {Recipient}: {Message}. Admin notified: {notifyAdmin}");
     }
 }
 
@@ -126,5 +126,6 @@ class NotificationManager
         NotificationService notificationService = new NotificationService();
         notificationService.SendAll(notifications);
         notificationService.GenerateReport(notifications);
+
     }
 }
