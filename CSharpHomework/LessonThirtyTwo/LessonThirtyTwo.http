@@ -1,0 +1,6 @@
+@LessonThirtyTwo_HostAddress = http://localhost:5265
+
+GET {{LessonThirtyTwo_HostAddress}}/math/
+Accept: application/json
+
+###
