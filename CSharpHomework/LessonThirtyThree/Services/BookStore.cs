@@ -1,10 +1,11 @@
 ﻿using LessonThirtyThree.Services;
+using System.Collections.Generic;
+using System.Linq;
+using LessonThirtyThree.Models;
 
 namespace LessonThirtyThree.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using LessonThirtyThree.Models;
+    
 
     public class BookStore : IBookStore
     {

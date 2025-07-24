@@ -1,7 +1,9 @@
+using LessonThirtyThree.Models;
+using System.Collections.Generic;
+
 namespace LessonThirtyThree.Services
 {
-    using LessonThirtyThree.Models;
-    using System.Collections.Generic;
+    
 
     public interface IBookStore
     {

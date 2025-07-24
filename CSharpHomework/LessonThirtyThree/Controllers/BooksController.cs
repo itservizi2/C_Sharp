@@ -1,12 +1,14 @@
+using LessonThirtyThree.Helpers;
+using LessonThirtyThree.Models;
+using LessonThirtyThree.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+
 namespace LessonThirtyThree.Controllers
 {
-    using LessonThirtyThree.Helpers;
-    using LessonThirtyThree.Models;
-    using LessonThirtyThree.Services;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.Json;
+  
 
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]

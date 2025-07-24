@@ -1,6 +1,8 @@
-﻿namespace LessonThirtyThree.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LessonThirtyThree.Models
 {
-    using System.ComponentModel.DataAnnotations;
+    
 
    
         public class BookDto
