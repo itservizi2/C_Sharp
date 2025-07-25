@@ -1,0 +1,6 @@
+@LessonThirtyFive_HostAddress = http://localhost:5249
+
+GET {{LessonThirtyFive_HostAddress}}/book/
+Accept: application/json
+
+###
