@@ -2,15 +2,18 @@
 using BookstoreApi.Data;
 using BookstoreApi.Dtos;
 using BookstoreApi.Models;
+using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreApi.Controllers
 {
+    [Authorize] 
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
+        
         private readonly BookstoreContext _context;
         private readonly IMapper _mapper;
 
@@ -20,7 +23,7 @@ namespace BookstoreApi.Controllers
             _mapper = mapper;
         }
 
-      
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
@@ -28,7 +31,7 @@ namespace BookstoreApi.Controllers
             return Ok(_mapper.Map<List<CategoryDto>>(categories));
         }
 
-      
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CategoryDto>> GetCategory(int id)
         {
@@ -41,7 +44,7 @@ namespace BookstoreApi.Controllers
             return Ok(_mapper.Map<CategoryDto>(category));
         }
 
-        
+
         [HttpPost]
         public async Task<ActionResult<CategoryDto>> CreateCategory(CreateCategoryDto createCategoryDto)
         {
@@ -53,7 +56,7 @@ namespace BookstoreApi.Controllers
             return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, categoryDto);
         }
 
-       
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, CreateCategoryDto updateCategoryDto)
         {
@@ -70,7 +73,7 @@ namespace BookstoreApi.Controllers
             return NoContent();
         }
 
-       
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
@@ -80,7 +83,7 @@ namespace BookstoreApi.Controllers
                 return NotFound();
             }
 
-            
+
             var hasBooks = await _context.Books.AnyAsync(b => b.CategoryId == id);
             if (hasBooks)
             {

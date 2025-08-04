@@ -2,15 +2,18 @@
 using BookstoreApi.Data;
 using BookstoreApi.Dtos;
 using BookstoreApi.Models;
+using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreApi.Controllers
 {
+    [Authorize] 
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
     {
+        
         private readonly BookstoreContext _context;
         private readonly IMapper _mapper;
 
@@ -20,7 +23,7 @@ namespace BookstoreApi.Controllers
             _mapper = mapper;
         }
 
-      
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookDto>>> GetBooks([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
@@ -36,7 +39,7 @@ namespace BookstoreApi.Controllers
             return Ok(bookDtos);
         }
 
-      
+
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDto>> GetBook(int id)
         {
@@ -54,7 +57,7 @@ namespace BookstoreApi.Controllers
             return Ok(_mapper.Map<BookDto>(book));
         }
 
-     
+
         [HttpPost]
         public async Task<ActionResult<BookDto>> CreateBook(CreateBookDto createBookDto)
         {
@@ -63,7 +66,7 @@ namespace BookstoreApi.Controllers
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
-            
+
             await _context.Entry(book).Reference(b => b.Author).LoadAsync();
             await _context.Entry(book).Reference(b => b.Category).LoadAsync();
 
@@ -72,7 +75,7 @@ namespace BookstoreApi.Controllers
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, bookDto);
         }
 
-       
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(int id, CreateBookDto updateBookDto)
         {
@@ -106,7 +109,7 @@ namespace BookstoreApi.Controllers
             return NoContent();
         }
 
-       
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {

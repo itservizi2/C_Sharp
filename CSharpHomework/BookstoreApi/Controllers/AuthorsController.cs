@@ -2,15 +2,18 @@
 using BookstoreApi.Data;
 using BookstoreApi.Dtos;
 using BookstoreApi.Models;
+using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreApi.Controllers
 {
+    [Authorize] 
     [Route("api/[controller]")]
     [ApiController]
     public class AuthorsController : ControllerBase
     {
+        
         private readonly BookstoreContext _context;
         private readonly IMapper _mapper;
 
@@ -20,7 +23,7 @@ namespace BookstoreApi.Controllers
             _mapper = mapper;
         }
 
-       
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthorDto>>> GetAuthors()
         {
@@ -28,7 +31,7 @@ namespace BookstoreApi.Controllers
             return Ok(_mapper.Map<List<AuthorDto>>(authors));
         }
 
-      
+
         [HttpGet("{id}")]
         public async Task<ActionResult<AuthorDto>> GetAuthor(int id)
         {
@@ -41,7 +44,7 @@ namespace BookstoreApi.Controllers
             return Ok(_mapper.Map<AuthorDto>(author));
         }
 
-       
+
         [HttpPost]
         public async Task<ActionResult<AuthorDto>> CreateAuthor(CreateAuthorDto createAuthorDto)
         {
@@ -53,7 +56,7 @@ namespace BookstoreApi.Controllers
             return CreatedAtAction(nameof(GetAuthor), new { id = author.Id }, authorDto);
         }
 
-      
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAuthor(int id, CreateAuthorDto updateAuthorDto)
         {
@@ -70,7 +73,7 @@ namespace BookstoreApi.Controllers
             return NoContent();
         }
 
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
@@ -80,7 +83,7 @@ namespace BookstoreApi.Controllers
                 return NotFound();
             }
 
-            
+
             var hasBooks = await _context.Books.AnyAsync(b => b.AuthorId == id);
             if (hasBooks)
             {
