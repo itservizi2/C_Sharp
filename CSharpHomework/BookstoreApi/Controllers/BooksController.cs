@@ -4,14 +4,11 @@ using BookstoreApi.Dtos;
 using BookstoreApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization; 
-
 
 namespace BookstoreApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class BooksController : ControllerBase
     {
         private readonly BookstoreContext _context;
@@ -57,43 +54,25 @@ namespace BookstoreApi.Controllers
             return Ok(_mapper.Map<BookDto>(book));
         }
 
-
+     
         [HttpPost]
         public async Task<ActionResult<BookDto>> CreateBook(CreateBookDto createBookDto)
         {
-            
-            var authorExists = await _context.Authors.AnyAsync(a => a.Id == createBookDto.AuthorId);
-            if (!authorExists)
-            {
-                
-                return BadRequest(new { message = $"Author with ID {createBookDto.AuthorId} does not exist." });
-            }
-
-            var categoryExists = await _context.Categories.AnyAsync(c => c.Id == createBookDto.CategoryId);
-            if (!categoryExists)
-            {
-                
-                return BadRequest(new { message = $"Category with ID {createBookDto.CategoryId} does not exist." });
-            }
-            
-
             var book = _mapper.Map<Book>(createBookDto);
 
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
-            var newBook = await _context.Books
-                .Include(b => b.Author)
-                .Include(b => b.Category)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(b => b.Id == book.Id);
+            
+            await _context.Entry(book).Reference(b => b.Author).LoadAsync();
+            await _context.Entry(book).Reference(b => b.Category).LoadAsync();
 
-            var bookDto = _mapper.Map<BookDto>(newBook);
+            var bookDto = _mapper.Map<BookDto>(book);
 
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, bookDto);
         }
 
-
+       
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(int id, CreateBookDto updateBookDto)
         {

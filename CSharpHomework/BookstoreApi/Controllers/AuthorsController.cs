@@ -4,14 +4,11 @@ using BookstoreApi.Dtos;
 using BookstoreApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-
 
 namespace BookstoreApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class AuthorsController : ControllerBase
     {
         private readonly BookstoreContext _context;
