@@ -11,52 +11,56 @@ namespace YourAwesomeBot.Services
     public class LibraryApiService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiUrl;
+
+        
 
         public LibraryApiService(HttpClient httpClient, IOptions<BotConfiguration> config)
         {
             _httpClient = httpClient;
-            _apiUrl = config.Value.LibraryApiUrl;
+            // _apiUrl = config.Value.LibraryApiUrl; 
         }
 
         public async Task<ApiResponse<Book>> GetBooksAsync(int page = 1, int pageSize = 10, string query = null)
         {
-            var builder = new UriBuilder($"{_apiUrl}/books");
-            var queryParams = HttpUtility.ParseQueryString(builder.Query);
-            queryParams["Page"] = page.ToString();
-            queryParams["PageSize"] = pageSize.ToString();
-            if (!string.IsNullOrEmpty(query))
-            {
-                queryParams["Query"] = query;
-            }
-            builder.Query = queryParams.ToString();
+            
+            var booksUrl = "https://mocki.io/v1/a6d06b93-60a8-48e0-b7c3-4473b83ac77c";
 
-            var response = await _httpClient.GetStringAsync(builder.ToString());
+            // Note: Our simple mock API doesn't support query, page, or pageSize,
+            // but we leave the parameters here so the bot logic doesn't break.
+            var response = await _httpClient.GetStringAsync(booksUrl);
             return JsonConvert.DeserializeObject<ApiResponse<Book>>(response);
         }
 
         public async Task<Book> GetBookByIdAsync(int id)
         {
-            var response = await _httpClient.GetStringAsync($"{_apiUrl}/books/{id}");
-            return JsonConvert.DeserializeObject<Book>(response);
+            // For now, this is harder to mock. We'll return a default book.
+            return new Book { Id = id, Title = "A Mocked Book", Price = 9.99m };
         }
 
         public async Task<ApiResponse<Author>> GetAuthorsAsync(int page = 1, int pageSize = 10)
         {
-            var response = await _httpClient.GetStringAsync($"{_apiUrl}/authors?Page={page}&PageSize={pageSize}");
+            
+            var authorsUrl = "https://mocki.io/v1/1ff54986-680c-4c05-b96a-95088b72f6f9";
+
+            var response = await _httpClient.GetStringAsync(authorsUrl);
             return JsonConvert.DeserializeObject<ApiResponse<Author>>(response);
         }
 
         public async Task<Author> GetAuthorDetailsAsync(int id)
         {
-            var response = await _httpClient.GetStringAsync($"{_apiUrl}/authors/{id}");
-            return JsonConvert.DeserializeObject<Author>(response);
+            // For now, this is harder to mock. We'll return a default author.
+            return new Author { Id = id, Name = "A Mocked Author" };
         }
 
         public async Task<ApiResponse<Category>> GetCategoriesAsync()
         {
-            var response = await _httpClient.GetStringAsync($"{_apiUrl}/categories");
-            return JsonConvert.DeserializeObject<ApiResponse<Category>>(response);
+            
+            var categoriesUrl = "https://mocki.io/v1/709b8e00-6742-4892-ac6a-6bab96e35e67";
+
+            var response = await _httpClient.GetStringAsync(categoriesUrl);
+            
+            var items = JsonConvert.DeserializeObject<ApiResponse<Category>>(response);
+            return items;
         }
     }
 }

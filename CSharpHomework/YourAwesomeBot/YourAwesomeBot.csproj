@@ -5,6 +5,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<UserSecretsId>3151df1f-3647-4728-96de-581ad03f05be</UserSecretsId>
 	</PropertyGroup>
 
 	<!-- This ItemGroup correctly configures your appsettings.json file -->
